@@ -3,13 +3,14 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
 from . import auth
+from ..models import User
 
 @auth.route("/login", methods=['POST'])
 def login():    
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = # query user from database
+    user = User.query.filter_by(email=email).first()
 
     if user: #check is user exists
         if check_password_hash(user.password, password):
@@ -27,8 +28,8 @@ def register():
     password = request.form.get("password1")
     confirm_password = request.form.get("password2")
 
-    email_exists = # query email from database
-    username_exists  = # query username from database
+    email_exists = User.query.filter_by(email=email).first()
+    username_exists = User.query.filter_by(username=username).first()
 
     if email_exists:
         return {"msg": "Account with email already exists"}, 401

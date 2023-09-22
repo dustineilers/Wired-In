@@ -1,3 +1,3 @@
 from flask import Blueprint
 
-app = Blueprint('app', __name__)
+views = Blueprint('api', __name__)
