@@ -6,7 +6,3 @@ def create_app():
     app.config['SECRET_KEY'] = "anton"
 
     return app
-
-if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True)
