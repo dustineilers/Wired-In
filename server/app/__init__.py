@@ -4,8 +4,6 @@ from .models import db
 from os import path
 import sys
 
-sys.dont_write_bytecode = True
-
 DB_NAME = 'database.db'
 
 def create_app():
@@ -15,14 +13,16 @@ def create_app():
 
     db.init_app(app)
 
-    from app.api import views
-    from app.authentication import auth
+    from .api import api
+    from .auth import auth
 
-    app.register_blueprint(views, url_prefix="/")
-    app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(api, url_prefix="/api")
+    app.register_blueprint(auth, url_prefix="/auth")
 
     login_manager = LoginManager()
     login_manager.init_app(app)
+
+    print(app.url_map)
 
     from .models import User, Task
 

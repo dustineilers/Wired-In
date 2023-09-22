@@ -42,11 +42,9 @@ def register():
     elif not is_valid(email):
         return {"msg": "Email address is not valid"}, 401
     else:
-
-    
+        return
 
 @auth.route("/logout", methods=['POST'])
-@login_required
 def logout():
     logout_user()
     return {"msg": "Logout successful"}

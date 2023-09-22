@@ -5,5 +5,5 @@ sys.dont_write_bytecode = True
 
 if __name__ == "__main__":
     app = create_app()
-    app.run()
+    app.run(debug=True)
 
