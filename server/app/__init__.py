@@ -1,6 +1,10 @@
 from flask import Flask
 from flask_login import LoginManager
 from .models import db
+from os import path
+import sys
+
+sys.dont_write_bytecode = True
 
 DB_NAME = 'database.db'
 
@@ -22,10 +26,16 @@ def create_app():
 
     from .models import User, Task
 
-    def initialize_database():
-        try:
-            db.create_all()
-        except Exception as e:
-            print('> Error: DBMS Exception: ' + str(e))
+    initialize_database(app)
 
     return app
+
+def initialize_database(app):
+    if not path.exists("server/" + DB_NAME):
+        try:
+            with app.app_context():
+                db.create_all()
+                print("Created database!")
+        except Exception as e:
+            print("> Error: DBMS Exception: " + str(e))
+
